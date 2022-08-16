@@ -3,4 +3,5 @@ createdb: ;docker exec -it postgres12 createdb --username=Ayou --owner=Ayou simp
 dropdb: ; docker exec -it postgres12 dropdb --username=Ayou simple_bank
 migrationup: ; migrate -path db/migrations -database "postgresql://Ayou:ayou2312@localhost:5432/simple_bank?sslmode=disable" -verbose up
 migrationdown: ; migrate -path db/migrations -database "postgresql://Ayou:ayou2312@localhost:5432/simple_bank?sslmode=disable" -verbose down
-.PHONY:  postgres createdb dropdb migrationup migrationdown
+sqlc: ; docker run --rm -v "$(CURDIR):/src" -w //src kjconroy/sqlc generate
+.PHONY:  postgres createdb dropdb migrationup migrationdown sqlc
